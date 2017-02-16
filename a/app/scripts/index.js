@@ -7,9 +7,9 @@ $(function(){
 
   var postCollection = new models.PostCollection();
 
-  var 
+  var blogForm = new views.PostView({collection: postCollection});
+  $('.row').append(blogForm.render().el);
 
 
-
-
+  postCollection.fetch();
 });
