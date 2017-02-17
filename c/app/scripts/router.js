@@ -7,7 +7,7 @@ var models = require('./models/blog');
 var Router = Backbone.Router.extend({
   routes:{
     '':'index',
-    '#':'index',
+    'home':'index',
     'blog/:id':'viewPost'
   },
   initialize: function(){
