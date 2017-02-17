@@ -3,6 +3,7 @@ var Backbone = require('backbone');
 
 var models = require('../models/blog');
 var listItemTemplate = require('../../templates/listedblog.hbs');
+var singleBlogTemplate = require('../../templates/singleblog.hbs');
 
 var BlogList = Backbone.View.extend({
   tagName: 'ul',
@@ -14,9 +15,8 @@ var BlogList = Backbone.View.extend({
     return this;
   },
   renderBlogPost: function(post){
-    var newBlogPost = new models.BlogPost({model: post});
-    console.log(newBlogPost);
-    // this.$el.append(newBlogPost.render().el);
+    var newBlogPost = new BlogListItem({model: post});
+    this.$el.append(newBlogPost.render().el);
   }
 });
 
@@ -27,8 +27,6 @@ var BlogListItem = Backbone.View.extend({
   inialize: function(){
   },
   render: function(){
-    console.log('list item firing');
-    console.log(this);
     var newBlogPost = this.template(this.model.toJSON());
 
     this.$el.html(newBlogPost);
@@ -37,8 +35,15 @@ var BlogListItem = Backbone.View.extend({
 });
 
 var BlogPage = Backbone.View.extend({
+  tagName: 'div',
   className: 'col-sm-12',
-
+  template: singleBlogTemplate,
+  render: function(){
+    console.log('changed');
+    var blogTemp = this.template(this.model.toJSON());
+    this.$el.html(blogTemp);
+    return this;
+  }
 });
 
 module.exports = {

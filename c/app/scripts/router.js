@@ -7,7 +7,8 @@ var models = require('./models/blog');
 var Router = Backbone.Router.extend({
   routes:{
     '':'index',
-    'blog:/id/':'viewPost'
+    '#':'index',
+    'blog/:id':'viewPost'
   },
   initialize: function(){
     this.blogListings = new models.BlogCollection();
@@ -15,15 +16,13 @@ var Router = Backbone.Router.extend({
   index: function(){
     this.blogListings.fetch();
     var blogList = new views.BlogList({collection: this.blogListings});
-
-    $('.row').append(blogList.render().el);
-
-    var listItems = new views.BlogListItem({model: this.blogListings});
-    // console.log(listItems);
-    $('.row').append(listItems.render().el);
+    $('.row').html(blogList.render().el);
   },
   viewPost: function(id){
-
+    console.log('method called');
+    var post = this.blogListings.findWhere({'_id':id});
+    var postDetails = new views.BlogPage({model: post});
+    $('.row').html(postDetails.render().el);
   }
 
 });
