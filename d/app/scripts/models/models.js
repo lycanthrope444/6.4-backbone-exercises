@@ -1,13 +1,23 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 
-var Bookmark = Backbone.model.extend({
-  
+var Bookmark = Backbone.Model.extend({
+  idAttribute: "_id",
+
 });
 
-var BookmarkCollection = Backbone.collection.extend({
+var BookmarkCollection = Backbone.Collection.extend({
   model : Bookmark,
   url: 'https://tiny-lasagna-server.herokuapp.com/collections/nathanbookmark'
+});
+
+var Tag = Backbone.Model.extend({
+
+});
+
+var TagCollection = Backbone.Collection.extend({
+  model: Tag
+
 });
 
 module.exports = {
