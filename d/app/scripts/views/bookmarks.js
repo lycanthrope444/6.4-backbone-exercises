@@ -33,16 +33,22 @@ var BookmarkFormView = Backbone.View.extend({
 
     var $title = $('#title');
     var $url = $('#url');
-    // var $tag = $('.tag-list');
-
+    var $tags =[];
+    _.each($('.active'), function(context){
+      $tags.push($(context).html());
+    });
+    console.log($tags);
     this.collection.create({
       title: $title.val(),
       url: $url.val(),
-      // tag: $tag
+      tag: $tags
     });
 
     $title.val('');
     $url.val('');
+    $('.active').addClass('disabled');
+    $('.added-tags').html('');
+    $tags=[];
   },
   displayBookmark: function(bookmarkItem){
     // console.log('here', bookmarkItem);
@@ -101,21 +107,24 @@ var TagButtonGroup = Backbone.View.extend({
 
 var TagButton = Backbone.View.extend({
   tagName: 'button',
-  className: 'btn',
+  className: 'btn tagBtn disabled',
   template: tagBtnTemplate,
   events: {
     'click':'addTag'
   },
   render: function(){
     var buttonize = this.template(this.model.toJSON());
-    console.log(buttonize);
     this.$el.append(buttonize);
     // this.$el.append(this.template(buttonize));
     return this;
   },
   addTag: function(event){
     event.preventDefault();
-    console.log('Tag Added');
+    var $tagControl = $('.added-tags');
+    $tagControl.append(this.model.get('type')+' ');
+    this.$el.removeClass('disabled');
+    this.$el.addClass('active');
+    this.$el.addClass(this.model.get('type'));
   }
 });
 
