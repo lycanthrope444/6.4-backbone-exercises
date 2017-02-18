@@ -21,14 +21,17 @@ var AppRouter = Backbone.Router.extend({
     // this.
   },
   index: function(){
+    // Demo Url
+    this.bookmarkList.add({'title': 'TIY', 'url':'theironyard.com'});
+
     var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
     $('.bookmark-section').append(bookmarkForm.render().el);
 
-    var bookmarkList = new views.BookmarkListView({collection: this.bookmarkList});
-    $('.bookmark-list').append(bookmarkList.render().el);
-    this.bookmarkList.add({'title': 'TIY', 'url':'theironyard.com'});
+    // var bookmarkList = new views.BookmarkListView({collection: this.bookmarkList});
+    // $('.bookmark-list').append(bookmarkList.render().el);
 
-    // this.bookmarkList.fetch();
+
+    this.bookmarkList.fetch();
   },
   social: function(){
     console.log('social start');

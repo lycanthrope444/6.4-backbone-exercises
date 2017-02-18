@@ -15,8 +15,11 @@ var BookmarkFormView = Backbone.View.extend({
     'submit': 'addBookmark'
   },
   initialize: function(){
-    console.log(this);
-    this.listenTo(this.collection, 'add', this.displayBookmark());
+    console.log(this.collection);
+    var bookmarkList = new BookmarkListView({collection: this.collection});
+    $('.bookmark-list').append(bookmarkList.render().el);
+    this.listenTo(this.collection, 'add', this.displayBookmark);
+
     // console.log('form init');
   },
   render: function(){
@@ -39,9 +42,9 @@ var BookmarkFormView = Backbone.View.extend({
     });
   },
   displayBookmark: function(bookmarkItem){
-    console.log(bookmarkItem);
+    // console.log('here', bookmarkItem);
     var bookmark = new BookmarkItemView({model: bookmarkItem});
-    this.$el.append(bookmark.render().el);
+    $('.bookmark-ul').append(bookmark.render().el);
   }
 });
 
@@ -50,7 +53,7 @@ var BookmarkItemView = Backbone.View.extend({
   template: bookmarkListItem,
   render: function(){
     console.log('creating list item');
-    console.log(this);
+    // console.log(this);
     var context = this.template(this.model.toJSON());
     this.$el.html(context);
     return this;
