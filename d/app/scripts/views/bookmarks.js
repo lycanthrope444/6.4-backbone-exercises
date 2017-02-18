@@ -1,12 +1,15 @@
 var $ = require('jquery');
+var _ = require('underscore');
 var Backbone = require('backbone');
 
 var models = require('../models/models');
 var bookmarkFormTemplate = require('../../templates/bookmarkform.hbs');
 var bookmarkListItem = require('../../templates/urllistitem.hbs');
+var tagBtnTemplate = require('../../templates/bookmarkform.hbs');
 
 var BookmarkFormView = Backbone.View.extend({
   tagName:'form',
+  className: 'bookmark-form',
   template: bookmarkFormTemplate,
   attributes:{
     method: 'post'
@@ -15,9 +18,6 @@ var BookmarkFormView = Backbone.View.extend({
     'submit': 'addBookmark'
   },
   initialize: function(){
-    console.log(this.collection);
-    var bookmarkList = new BookmarkListView({collection: this.collection});
-    $('.bookmark-list').append(bookmarkList.render().el);
     this.listenTo(this.collection, 'add', this.displayBookmark);
 
     // console.log('form init');
@@ -29,17 +29,20 @@ var BookmarkFormView = Backbone.View.extend({
   },
   addBookmark: function(event){
     event.preventDefault();
-    console.log('addBookmark');
+    // console.log('addBookmark');
 
     var $title = $('#title');
     var $url = $('#url');
-    var $tag = $('.tag-list');
+    // var $tag = $('.tag-list');
 
     this.collection.create({
       title: $title.val(),
       url: $url.val(),
-      tag: $tag
+      // tag: $tag
     });
+
+    $title.val('');
+    $url.val('');
   },
   displayBookmark: function(bookmarkItem){
     // console.log('here', bookmarkItem);
@@ -51,13 +54,25 @@ var BookmarkFormView = Backbone.View.extend({
 var BookmarkItemView = Backbone.View.extend({
   tagName: 'li',
   template: bookmarkListItem,
+  events:{
+    'click .erase': 'nukeSelf'
+  },
+  initialize: function(){
+    // console.log('i live');
+    this.listenTo(this.model, 'destroy', this.remove);
+
+  },
   render: function(){
-    console.log('creating list item');
+    // console.log('creating list item');
     // console.log(this);
     var context = this.template(this.model.toJSON());
     this.$el.html(context);
     return this;
   },
+  nukeSelf: function(event){
+    event.preventDefault();
+    this.model.destroy();
+  }
 
 });
 
@@ -66,17 +81,39 @@ var BookmarkListView = Backbone.View.extend({
   className: 'bookmark-ul'
 });
 
+var TagButtonGroup = Backbone.View.extend({
+  className: 'tag-list',
+  initialize: function(){
+    // console.log('tag group lives');
+    // console.log(this.collection);
+    _.each(this.collection.models, this.makeBtn);
+  },
+  render: function(){
+
+    return this;
+  },
+  makeBtn: function(context){
+    // console.log(context);
+    var tagButton = new TagButton({model: context});
+    $('.tag-list').append(tagButton.render().el);
+  }
+});
+
 var TagButton = Backbone.View.extend({
   tagName: 'button',
   className: 'btn',
+  template: tagBtnTemplate,
   events: {
     'click':'addTag'
   },
   render: function(){
-    console.log('button rendered');
+    var buttonize = this.model.toJSON();
+    console.log(this);
+    // this.$el.append(this.template(buttonize));
     return this;
   },
-  addTag: function(){
+  addTag: function(event){
+    event.preventDefault();
     console.log('Tag Added');
   }
 });
@@ -91,5 +128,6 @@ module.exports = {
   'BookmarkFormView' : BookmarkFormView,
   'BookmarkItemView' : BookmarkItemView,
   'BookmarkListView' : BookmarkListView,
-  'TagButton' : TagButton
+  'TagButton' : TagButton,
+  'TagButtonGroup' : TagButtonGroup
 };

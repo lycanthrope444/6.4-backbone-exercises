@@ -42,7 +42,7 @@ codingTag.set('type', 'coding');
 var currentTags = [socialTag, moviesTag, musicTag, gamesTag, sportsTag, financeTag, codingTag];
 
 var activeTags = new TagCollection(currentTags);
-console.log(activeTags);
+// console.log(activeTags);
 module.exports = {
   'Bookmark' : Bookmark,
   'BookmarkCollection' : BookmarkCollection,
