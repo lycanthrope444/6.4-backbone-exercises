@@ -8,19 +8,49 @@ var AppRouter = Backbone.Router.extend({
   routes :{
     '':'index',
     'social': 'social',
-
+    'music': 'music',
+    'movies': 'movies',
+    'games': 'games',
+    'sports': 'sports',
+    'finance':'finance',
+    'coding':'coding'
   },
   initialize: function(){
-    // this.bookmarkList = new
+    this.bookmarkList = new models.BookmarkCollection();
+    this.tagButtons = models.activeTags;
     // this.
-    console.log('router init');
   },
   index: function(){
-    console.log('index start');
-    // this
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').append(bookmarkForm.render().el);
+
+    var bookmarkList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-list').append(bookmarkList.render().el);
+    this.bookmarkList.add({'title': 'TIY', 'url':'theironyard.com'});
+
+    // this.bookmarkList.fetch();
   },
   social: function(){
     console.log('social start');
+  },
+  music: function(){
+    console.log('music start');
+  },
+  movies: function(){
+    console.log('movies start');
+  },
+  games: function(){
+    console.log('games start');
+
+  },
+  sports: function(){
+    console.log('sports start');
+  },
+  finance: function(){
+    console.log('finance start');
+  },
+  coding: function(){
+    console.log('coding start');
   }
 });
 
