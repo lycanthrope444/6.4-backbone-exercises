@@ -38,8 +38,10 @@ var financeTag = new Tag();
 financeTag.set('type', 'finance');
 var codingTag = new Tag();
 codingTag.set('type', 'coding');
+var kayakingTag = new Tag();
+kayakingTag.set('type', 'kayaking');
 
-var currentTags = [socialTag, moviesTag, musicTag, gamesTag, sportsTag, financeTag, codingTag];
+var currentTags = [socialTag, moviesTag, musicTag, gamesTag, sportsTag, financeTag, codingTag, kayakingTag];
 
 var activeTags = new TagCollection(currentTags);
 // console.log(activeTags);

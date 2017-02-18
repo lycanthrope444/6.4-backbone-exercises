@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var models = require('../models/models');
 var bookmarkFormTemplate = require('../../templates/bookmarkform.hbs');
 var bookmarkListItem = require('../../templates/urllistitem.hbs');
-var tagBtnTemplate = require('../../templates/bookmarkform.hbs');
+var tagBtnTemplate = require('../../templates/tagbutton.hbs');
 
 var BookmarkFormView = Backbone.View.extend({
   tagName:'form',
@@ -82,14 +82,14 @@ var BookmarkListView = Backbone.View.extend({
 });
 
 var TagButtonGroup = Backbone.View.extend({
-  className: 'tag-list',
+  className: 'tag-group',
   initialize: function(){
     // console.log('tag group lives');
     // console.log(this.collection);
     _.each(this.collection.models, this.makeBtn);
   },
   render: function(){
-
+    // console.log('tag group lives');
     return this;
   },
   makeBtn: function(context){
@@ -107,8 +107,9 @@ var TagButton = Backbone.View.extend({
     'click':'addTag'
   },
   render: function(){
-    var buttonize = this.model.toJSON();
-    console.log(this);
+    var buttonize = this.template(this.model.toJSON());
+    console.log(buttonize);
+    this.$el.append(buttonize);
     // this.$el.append(this.template(buttonize));
     return this;
   },
