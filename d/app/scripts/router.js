@@ -36,13 +36,16 @@ var AppRouter = Backbone.Router.extend({
     this.bookmarkList.fetch();
   },
   social: function(){
-    console.log('social start');
+    // console.log('social start');
 
     var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
-    $('.bookmark-section').append(bookmarkForm.render().el);
+    $('.bookmark-section').html(bookmarkForm.render().el);
 
-    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
-    $('.bookmark-ul').replaceWith(filteredList.render().el);
+    var tagButtonGrouping = new views.TagButtonGroup({collection: this.tagButtons});
+    $('.bookmark-form').append(tagButtonGrouping.render().el);
+
+    var filteredList = new views.BookmarkSocialView({collection: this.bookmarkList});
+    $('.bookmark-ul').html(filteredList.render().el);
 
     this.bookmarkList.fetch();
   },
@@ -50,15 +53,24 @@ var AppRouter = Backbone.Router.extend({
     console.log('music start');
 
     var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
-    $('.bookmark-section').append(bookmarkForm.render().el);
+    $('.bookmark-section').html(bookmarkForm.render().el);
 
-    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    var tagButtonGrouping = new views.TagButtonGroup({collection: this.tagButtons});
+    $('.bookmark-form').append(tagButtonGrouping.render().el);
+
+    var filteredList = new views.BookmarkMusicView({collection: this.bookmarkList});
     $('.bookmark-ul').replaceWith(filteredList.render().el);
 
     this.bookmarkList.fetch();
   },
   movies: function(){
     console.log('movies start');
+
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').html(bookmarkForm.render().el);
+
+    var tagButtonGrouping = new views.TagButtonGroup({collection: this.tagButtons});
+    $('.bookmark-form').append(tagButtonGrouping.render().el);
 
     var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
     $('.bookmark-list').replaceWith(filteredList.render().el);
@@ -68,6 +80,12 @@ var AppRouter = Backbone.Router.extend({
   games: function(){
     console.log('games start');
 
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').html(bookmarkForm.render().el);
+
+    var tagButtonGrouping = new views.TagButtonGroup({collection: this.tagButtons});
+    $('.bookmark-form').append(tagButtonGrouping.render().el);
+
     var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
     $('.bookmark-list').replaceWith(filteredList.render().el);
 
@@ -75,6 +93,12 @@ var AppRouter = Backbone.Router.extend({
   },
   sports: function(){
     console.log('sports start');
+
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').html(bookmarkForm.render().el);
+
+    var tagButtonGrouping = new views.TagButtonGroup({collection: this.tagButtons});
+    $('.bookmark-form').append(tagButtonGrouping.render().el);
 
     var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
     $('.bookmark-list').replaceWith(filteredList.render().el);
@@ -84,6 +108,12 @@ var AppRouter = Backbone.Router.extend({
   finance: function(){
     console.log('finance start');
 
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').html(bookmarkForm.render().el);
+
+    var tagButtonGrouping = new views.TagButtonGroup({collection: this.tagButtons});
+    $('.bookmark-form').append(tagButtonGrouping.render().el);
+
     var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
     $('.bookmark-list').replaceWith(filteredList.render().el);
 
@@ -91,6 +121,12 @@ var AppRouter = Backbone.Router.extend({
   },
   coding: function(){
     console.log('coding start');
+
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').html(bookmarkForm.render().el);
+
+    var tagButtonGrouping = new views.TagButtonGroup({collection: this.tagButtons});
+    $('.bookmark-form').append(tagButtonGrouping.render().el);
 
     var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
     $('.bookmark-list').replaceWith(filteredList.render().el);

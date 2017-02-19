@@ -53,7 +53,7 @@ var AppRouter = Backbone.Router.extend({
     var editView = new views.BlogEditView({model: post});
     $('.blog-section').html(editView.render().el);
 
-    // this.blogCollection.fetch();
+    this.blogCollection.fetch();
   },
   createPost: function(id){
     var blogOptions = new views.BlogOptions();

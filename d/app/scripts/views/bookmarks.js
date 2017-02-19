@@ -20,7 +20,7 @@ var BookmarkFormView = Backbone.View.extend({
   initialize: function(){
     this.listenTo(this.collection, 'add', this.displayBookmark);
 
-    console.log('form init');
+    // console.log('form init');
   },
   render: function(){
     // console.log('form rendered');
@@ -84,8 +84,13 @@ var BookmarkItemView = Backbone.View.extend({
 
 var BookmarkListView = Backbone.View.extend({
   tagName:'ul',
-  className: 'bookmark-ul'
-  
+  className: 'bookmark-ul',
+  events: {
+
+  },
+  initialize: function(){
+    console.log(this);
+  }
 });
 
 var TagButtonGroup = Backbone.View.extend({
@@ -135,10 +140,80 @@ var TagFilterButton = Backbone.View.extend({
 
 });
 
+var BookmarkSocialView = Backbone.View.extend({
+  tagName: 'li',
+  template: bookmarkListItem,
+  initialize: function(){
+    this.listenTo(this.collection, 'add', this.displayBookmark);
+
+    // console.log('form init');
+  },
+  render: function(){
+    // console.log('form rendered');
+    this.$el.html(this.template());
+    return this;
+  },
+  displayBookmark: function(bookmarkItem){
+
+    var parser = bookmarkItem.toJSON();
+    var filterArray = parser.tag;
+    // console.log(filterArray);
+    var search = false;
+    _.each(filterArray, function(item){
+      var stringified = item.toString().slice(0, -1);
+      if (stringified === "social"){
+        search = true;
+      }
+      // console.log(stringified);
+      // console.assert(stringified==='social');
+    });
+    if (search){
+      var bookmark = new BookmarkItemView({model: bookmarkItem});
+      $('.bookmark-list').append(bookmark.render().el);
+    }
+  }
+});
+
+var BookmarkMusicView = Backbone.View.extend({
+  tagName: 'li',
+  template: bookmarkListItem,
+  initialize: function(){
+    this.listenTo(this.collection, 'add', this.displayBookmark);
+
+    // console.log('form init');
+  },
+  render: function(){
+    // console.log('form rendered');
+    this.$el.html(this.template());
+    return this;
+  },
+  displayBookmark: function(bookmarkItem){
+
+    var parser = bookmarkItem.toJSON();
+    var filterArray = parser.tag;
+    // console.log(filterArray);
+    var search = false;
+    _.each(filterArray, function(item){
+      var stringified = item.toString().slice(0, -1);
+      if (stringified === "music"){
+        search = true;
+      }
+      // console.log(stringified);
+      // console.assert(stringified==='social');
+    });
+    if (search){
+      var bookmark = new BookmarkItemView({model: bookmarkItem});
+      $('.bookmark-list').append(bookmark.render().el);
+    }
+  }
+});
+
 module.exports = {
   'BookmarkFormView' : BookmarkFormView,
   'BookmarkItemView' : BookmarkItemView,
   'BookmarkListView' : BookmarkListView,
+  'BookmarkSocialView' : BookmarkSocialView,
+  'BookmarkMusicView' : BookmarkMusicView,
   'TagButton' : TagButton,
   'TagButtonGroup' : TagButtonGroup
 };
