@@ -20,7 +20,7 @@ var BookmarkFormView = Backbone.View.extend({
   initialize: function(){
     this.listenTo(this.collection, 'add', this.displayBookmark);
 
-    // console.log('form init');
+    console.log('form init');
   },
   render: function(){
     // console.log('form rendered');
@@ -66,7 +66,7 @@ var BookmarkItemView = Backbone.View.extend({
   initialize: function(){
     // console.log('i live');
     this.listenTo(this.model, 'destroy', this.remove);
-
+    // console.log(this.model.toJSON());
   },
   render: function(){
     // console.log('creating list item');
@@ -85,6 +85,7 @@ var BookmarkItemView = Backbone.View.extend({
 var BookmarkListView = Backbone.View.extend({
   tagName:'ul',
   className: 'bookmark-ul'
+  
 });
 
 var TagButtonGroup = Backbone.View.extend({

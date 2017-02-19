@@ -37,25 +37,65 @@ var AppRouter = Backbone.Router.extend({
   },
   social: function(){
     console.log('social start');
+
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').append(bookmarkForm.render().el);
+
+    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-ul').replaceWith(filteredList.render().el);
+
+    this.bookmarkList.fetch();
   },
   music: function(){
     console.log('music start');
+
+    var bookmarkForm = new views.BookmarkFormView({collection: this.bookmarkList});
+    $('.bookmark-section').append(bookmarkForm.render().el);
+
+    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-ul').replaceWith(filteredList.render().el);
+
+    this.bookmarkList.fetch();
   },
   movies: function(){
     console.log('movies start');
+
+    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-list').replaceWith(filteredList.render().el);
+
+    this.bookmarkList.fetch();
   },
   games: function(){
     console.log('games start');
 
+    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-list').replaceWith(filteredList.render().el);
+
+    this.bookmarkList.fetch();
   },
   sports: function(){
     console.log('sports start');
+
+    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-list').replaceWith(filteredList.render().el);
+
+    this.bookmarkList.fetch();
   },
   finance: function(){
     console.log('finance start');
+
+    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-list').replaceWith(filteredList.render().el);
+
+    this.bookmarkList.fetch();
   },
   coding: function(){
     console.log('coding start');
+
+    var filteredList = new views.BookmarkListView({collection: this.bookmarkList});
+    $('.bookmark-list').replaceWith(filteredList.render().el);
+
+    this.bookmarkList.fetch();
   }
 });
 
