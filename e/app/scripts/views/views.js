@@ -10,13 +10,17 @@ var blogFormTemp = require('../../templates/blogformtemplate.hbs');
 
 var BlogPostForm = Backbone.View.extend({
   tagName: 'form',
-
+  events: {
+    'submit': 'createPost'
+  },
   template: blogFormTemp,
   render: function(){
-
+    this.$el.html(blogFormTemp);
     return this;
+  },
+  createPost: function(){
+    
   }
-
 });
 
 var BlogOptions = Backbone.View.extend({
@@ -48,10 +52,21 @@ var BlogPostList = Backbone.View.extend({
 var BlogPostListItem = Backbone.View.extend({
   tagName: 'li',
   template: blogListItem,
+  events: {
+    'click .erase': 'nukeSelf',
+  },
+  initalize: function(){
+    this.listenTo(this.model, 'destroy', this.remove);
+  },
   render: function(){
     var listItem = this.template(this.model.toJSON());
     this.$el.html(listItem);
     return this;
+  },
+  nukeSelf: function(event){
+    console.log(this);
+    event.preventDefault();
+    this.model.destroy();
   }
 });
 

@@ -8,6 +8,7 @@ var AppRouter = Backbone.Router.extend({
   routes:{
     '':'index',
     'create':'createPost',
+    'read': 'readPost',
     'post/:id/': 'showPost',
     'edit/:id/': 'editPost'
   },
@@ -18,21 +19,36 @@ var AppRouter = Backbone.Router.extend({
   index: function(){
 
     var blogOptions = new views.BlogOptions();
-    $('.blog-options').append(blogOptions.render().el);
+    $('.blog-options').html(blogOptions.render().el);
 
     var postList = new views.BlogPostList({collection: this.blogCollection});
-    $('.blog-section').append(postList.render().el);
+    $('.blog-section').html(postList.render().el);
 
     this.blogCollection.fetch();
   },
   showPost: function(id){
+    var blogOptions = new views.BlogOptions();
+    $('.blog-options').html(blogOptions.render().el);
+
+    var postList = new views.BlogPostList({collection: this.blogCollection});
+    $('.blog-section').html(postList.render().el);
+
+    this.blogCollection.fetch();
+
     // console.log('linking to ', id);
     var post = this.blogCollection.findWhere({'_id':id});
     var postView = new views.BlogReadView({model: post});
     $('.blog-section').html(postView.render().el);
   },
   editPost: function(id){
-    console.log('edit post fired', id);
+    var blogOptions = new views.BlogOptions();
+    $('.blog-options').html(blogOptions.render().el);
+
+    var postList = new views.BlogPostList({collection: this.blogCollection});
+    $('.blog-section').html(postList.render().el);
+
+    this.blogCollection.fetch();
+
     var post = this.blogCollection.findWhere({'_id':id});
     var editView = new views.BlogEditView({model: post});
     $('.blog-section').html(editView.render().el);
@@ -40,11 +56,26 @@ var AppRouter = Backbone.Router.extend({
     // this.blogCollection.fetch();
   },
   createPost: function(id){
-    console.log('create post fired');
-    var postForm = new views.BlogPostForm();
-    $('.blog-section').html();
-  }
+    var blogOptions = new views.BlogOptions();
+    $('.blog-options').html(blogOptions.render().el);
 
+    var postList = new views.BlogPostList({collection: this.blogCollection});
+    $('.blog-section').html(postList.render().el);
+
+    this.blogCollection.fetch();
+    var postForm = new views.BlogPostForm();
+    $('.blog-section').html(postForm.render().el);
+  },
+  readPost: function(){
+    console.log('read post fired');
+    var blogOptions = new views.BlogOptions();
+    $('.blog-options').html(blogOptions.render().el);
+
+    var postList = new views.BlogPostList({collection: this.blogCollection});
+    $('.blog-section').html(postList.render().el);
+
+    this.blogCollection.fetch();
+  }
 });
 
 var appRouter = new AppRouter();
