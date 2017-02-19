@@ -12,11 +12,18 @@ var BlogPostForm = Backbone.View.extend({
   tagName: 'form',
 
   template: blogFormTemp,
+  render: function(){
+
+    return this;
+  }
 
 });
 
 var BlogOptions = Backbone.View.extend({
   template: blogOptionTemp,
+  events:{
+
+  },
   render: function(){
     this.$el.html(this.template());
     return this;
@@ -50,11 +57,35 @@ var BlogPostListItem = Backbone.View.extend({
 
 var BlogReadView = Backbone.View.extend({
   template: blogReadTemplate,
-
+  render: function(){
+    var viewPost = this.template(this.model.toJSON());
+    this.$el.html(viewPost);
+    return this;
+  }
 });
 
 var BlogEditView = Backbone.View.extend({
-  template: blogEditTemplate
+  tagName: 'form',
+  template: blogEditTemplate,
+  events:{
+    'submit':'editThisPost'
+  },
+  render: function(){
+    var editPost = this.template(this.model.toJSON());
+    this.$el.html(editPost);
+    return this;
+  },
+  editThisPost: function(event){
+    event.preventDefault();
+    console.log(this.model.toJSON());
+    var $title = $('#title');
+    var $body = $('#body');
+
+    this.model.set('title', $title.val());
+    this.model.set('body', $body.val());
+    console.log(this.model.toJSON());
+    this.model.save();
+  }
 });
 
 module.exports = {

@@ -27,12 +27,23 @@ var AppRouter = Backbone.Router.extend({
   },
   showPost: function(id){
     // console.log('linking to ', id);
-    var postView = new views.BlogReadView();
+    var post = this.blogCollection.findWhere({'_id':id});
+    var postView = new views.BlogReadView({model: post});
+    $('.blog-section').html(postView.render().el);
   },
   editPost: function(id){
-    var editView = new views.BlogEditView();
-  }
+    console.log('edit post fired', id);
+    var post = this.blogCollection.findWhere({'_id':id});
+    var editView = new views.BlogEditView({model: post});
+    $('.blog-section').html(editView.render().el);
 
+    // this.blogCollection.fetch();
+  },
+  createPost: function(id){
+    console.log('create post fired');
+    var postForm = new views.BlogPostForm();
+    $('.blog-section').html();
+  }
 
 });
 
