@@ -59,11 +59,11 @@ var AppRouter = Backbone.Router.extend({
     var blogOptions = new views.BlogOptions();
     $('.blog-options').html(blogOptions.render().el);
 
-    var postList = new views.BlogPostList({collection: this.blogCollection});
-    $('.blog-section').html(postList.render().el);
+    // var postList = new views.BlogPostList({collection: this.blogCollection});
+    // $('.blog-section').html(postList.render().el);
 
     this.blogCollection.fetch();
-    var postForm = new views.BlogPostForm();
+    var postForm = new views.BlogPostForm({collection: this.blogCollection});
     $('.blog-section').html(postForm.render().el);
   },
   readPost: function(){

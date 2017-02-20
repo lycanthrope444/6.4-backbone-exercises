@@ -14,12 +14,26 @@ var BlogPostForm = Backbone.View.extend({
     'submit': 'createPost'
   },
   template: blogFormTemp,
+  initalize: function(){
+    this.listenTo(this.collection, 'add', this.addPost);
+  },
   render: function(){
     this.$el.html(blogFormTemp);
     return this;
   },
-  createPost: function(){
-    
+  createPost: function(event){
+    event.preventDefault();
+
+    var $title = $('#title');
+    var $body = $('#body');
+
+    this.collection.create({
+      'title': $title.val(),
+      'body': $body.val()
+    });
+
+    $title.val('');
+    $body.val('');
   }
 });
 
